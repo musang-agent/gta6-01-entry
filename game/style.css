@@ -1,0 +1,143 @@
+/* SOLANO HEAT — HUD and menu styling. System fonts only: the game loads
+   nothing over the network, so every face here is a local fallback stack. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0b1520;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: #f5efe4;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#app { position: fixed; inset: 0; }
+#scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.hidden { display: none !important; }
+
+/* ------------------------------------------------------------------ HUD */
+#hud { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+
+#hud-top-left {
+  position: absolute; top: 18px; left: 20px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, .65);
+}
+#cash {
+  font-family: "Arial Narrow", "Helvetica Neue Condensed", Arial, sans-serif;
+  font-size: 42px; font-weight: 900; letter-spacing: 1px; color: #7ee081;
+  line-height: 1;
+}
+#health-bar {
+  margin-top: 8px; width: 210px; height: 12px;
+  background: rgba(0, 0, 0, .55); border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 6px; overflow: hidden;
+}
+#health-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #ff5a3c, #ffb03c); transition: width .2s; }
+#health-label { font-size: 11px; letter-spacing: 3px; color: #ffe9c9; margin-top: 4px; }
+
+#hud-top-right { position: absolute; top: 18px; right: 20px; text-align: right; text-shadow: 0 2px 6px rgba(0, 0, 0, .65); }
+#wanted-stars { font-size: 30px; letter-spacing: 4px; color: #ffd23c; min-height: 36px; }
+#wanted-stars .star-off { color: rgba(255, 255, 255, .28); }
+#wanted-stars.hot { text-shadow: 0 0 14px rgba(255, 210, 60, .9); }
+#clock { font-size: 15px; letter-spacing: 2px; color: #ffe9c9; margin-top: 2px; }
+
+#objective-box {
+  position: absolute; left: 20px; top: 150px; max-width: 420px;
+  background: rgba(8, 18, 28, .62); border-left: 4px solid #ff7a1a;
+  padding: 10px 14px; border-radius: 3px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .6);
+}
+#objective-title { font-size: 11px; letter-spacing: 4px; color: #ffb03c; font-weight: 700; }
+#objective-text { font-size: 17px; font-weight: 700; margin-top: 2px; }
+#objective-sub { font-size: 13px; color: #cfe8ff; margin-top: 2px; }
+
+#minimap-wrap {
+  position: absolute; left: 20px; bottom: 20px; width: 220px; height: 220px;
+  border: 2px solid rgba(255, 255, 255, .5); border-radius: 50%;
+  overflow: hidden; background: #0d1f2d;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .5);
+}
+#minimap { width: 100%; height: 100%; display: block; }
+#minimap-label {
+  position: absolute; bottom: 4px; left: 0; right: 0; text-align: center;
+  font-size: 10px; letter-spacing: 3px; color: rgba(255, 255, 255, .75);
+}
+
+#speedo {
+  position: absolute; right: 26px; bottom: 26px;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 54px; font-weight: 900; color: #fff;
+  text-shadow: 0 3px 8px rgba(0, 0, 0, .7);
+}
+#speed-unit { font-size: 18px; color: #ffd23c; }
+
+#crosshair {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  font-size: 30px; color: rgba(255, 255, 255, .9);
+  text-shadow: 0 0 6px rgba(0, 0, 0, .9);
+}
+
+#toast {
+  position: absolute; left: 50%; top: 22%; transform: translateX(-50%);
+  font-size: 24px; font-weight: 800; letter-spacing: 1px; color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .8); text-align: center;
+  opacity: 0; transition: opacity .25s;
+}
+#toast.show { opacity: 1; }
+
+#controls-hint {
+  position: absolute; right: 20px; bottom: 20px;
+  font-size: 12px; letter-spacing: 1px; color: rgba(255, 255, 255, .72);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .8); text-align: right;
+}
+
+/* -------------------------------------------------------------- overlays */
+.overlay {
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, rgba(6, 12, 20, .25) 0%, rgba(6, 12, 20, .72) 78%);
+}
+#title-screen { background: linear-gradient(180deg, rgba(255, 122, 26, .10) 0%, rgba(6, 12, 20, .55) 55%, rgba(6, 12, 20, .85) 100%); }
+.title-inner { text-align: center; max-width: 760px; padding: 24px; }
+.title-kicker { font-size: 14px; letter-spacing: 6px; color: #ffd23c; font-weight: 700; }
+.title-logo {
+  font-family: "Arial Narrow", "Helvetica Neue Condensed", Impact, Arial, sans-serif;
+  font-size: 118px; line-height: .88; font-weight: 900; letter-spacing: 2px;
+  color: #fff; margin: 14px 0 6px;
+  text-shadow: 0 6px 0 #ff5a3c, 0 12px 28px rgba(0, 0, 0, .65);
+}
+.title-logo span { color: #ff7a1a; text-shadow: 0 6px 0 #7a2b00, 0 12px 28px rgba(0, 0, 0, .65); }
+.title-tag { font-size: 18px; color: #ffe9c9; margin-bottom: 26px; }
+.title-foot { margin-top: 30px; font-size: 14px; color: #cfe8ff; line-height: 1.7; }
+.title-keys { margin-top: 8px; font-size: 12px; letter-spacing: 2px; color: rgba(255, 255, 255, .6); }
+
+.panel {
+  text-align: center; max-width: 620px; padding: 34px 44px;
+  background: rgba(8, 18, 28, .82); border: 1px solid rgba(255, 210, 60, .35);
+  border-radius: 10px; box-shadow: 0 18px 60px rgba(0, 0, 0, .6);
+}
+.panel h2 {
+  font-family: "Arial Narrow", Impact, Arial, sans-serif;
+  font-size: 56px; font-weight: 900; letter-spacing: 2px; line-height: 1;
+}
+.panel-kicker { font-size: 13px; letter-spacing: 5px; color: #ff7a1a; font-weight: 800; margin-bottom: 8px; }
+.panel-sub { font-size: 16px; color: #cfe8ff; margin: 12px 0 20px; line-height: 1.5; }
+.reward-line { font-size: 30px; font-weight: 900; color: #7ee081; margin-bottom: 14px; }
+.panel-stats { font-size: 14px; color: #ffe9c9; line-height: 1.9; margin-bottom: 22px; white-space: pre-line; }
+
+.big-btn {
+  display: inline-block; margin: 6px; padding: 14px 34px;
+  font-family: "Arial Narrow", Arial, sans-serif; font-size: 21px; font-weight: 900;
+  letter-spacing: 3px; color: #1a0d00; background: linear-gradient(180deg, #ffd23c, #ff7a1a);
+  border: none; border-radius: 6px; cursor: pointer;
+  box-shadow: 0 6px 0 #a83c00, 0 10px 24px rgba(0, 0, 0, .5);
+}
+.big-btn:hover { filter: brightness(1.08); }
+.big-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #a83c00; }
+.big-btn.ghost {
+  background: transparent; color: #ffe9c9;
+  border: 2px solid rgba(255, 233, 201, .6); box-shadow: none;
+}

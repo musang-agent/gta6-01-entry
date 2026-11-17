@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOLANO HEAT — an open-world crime game</title>
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three.module.min.js"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app">
+  <canvas id="scene"></canvas>
+
+  <!-- In-game HUD -->
+  <div id="hud" class="hidden">
+    <div id="hud-top-left">
+      <div id="cash">$<span id="cash-value">0</span></div>
+      <div id="health-bar"><div id="health-fill"></div></div>
+      <div id="health-label">HEALTH</div>
+    </div>
+    <div id="hud-top-right">
+      <div id="wanted-stars" aria-label="wanted level"></div>
+      <div id="clock">DAY 1 &nbsp;·&nbsp; <span id="clock-time">08:00</span></div>
+    </div>
+    <div id="objective-box">
+      <div id="objective-title">MISSION</div>
+      <div id="objective-text">Free roam — find Mara at the pier.</div>
+      <div id="objective-sub"></div>
+    </div>
+    <div id="minimap-wrap">
+      <canvas id="minimap" width="220" height="220"></canvas>
+      <div id="minimap-label">PORT SOLANO</div>
+    </div>
+    <div id="speedo" class="hidden"><span id="speed-value">0</span><span id="speed-unit"> mph</span></div>
+    <div id="crosshair" class="hidden">+</div>
+    <div id="toast"></div>
+    <div id="controls-hint">WASD drive / walk &nbsp;·&nbsp; E enter car &nbsp;·&nbsp; SPACE brake &nbsp;·&nbsp; CLICK shoot &nbsp;·&nbsp; P pause &nbsp;·&nbsp; M mute</div>
+  </div>
+
+  <!-- Title screen -->
+  <div id="title-screen" class="overlay">
+    <div class="title-inner">
+      <div class="title-kicker">PORT SOLANO &nbsp;·&nbsp; A COASTAL CRIME STORY</div>
+      <h1 class="title-logo">SOLANO<br><span>HEAT</span></h1>
+      <p class="title-tag">Five jobs. One fixer. A city that never sleeps — and never forgets.</p>
+      <button id="btn-start" class="big-btn">START GAME</button>
+      <button id="btn-continue" class="big-btn ghost hidden">CONTINUE — DAY <span id="continue-day">1</span></button>
+      <div class="title-foot">
+        <div>DARIO CRUZ — wheelman for hire</div>
+        <div>MARA VOSS — the fixer who runs the pier</div>
+        <div class="title-keys">WASD move &nbsp;·&nbsp; E steal / enter car &nbsp;·&nbsp; CLICK shoot &nbsp;·&nbsp; P pause</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pause screen -->
+  <div id="pause-screen" class="overlay hidden">
+    <div class="panel">
+      <h2>PAUSED</h2>
+      <p class="panel-sub">Port Solano waits for no one. Except now.</p>
+      <button id="btn-resume" class="big-btn">RESUME</button>
+      <button id="btn-restart" class="big-btn ghost">RESTART DAY</button>
+      <button id="btn-quit-title" class="big-btn ghost">QUIT TO TITLE</button>
+      <div class="panel-stats" id="pause-stats"></div>
+    </div>
+  </div>
+
+  <!-- Mission complete screen -->
+  <div id="mission-screen" class="overlay hidden">
+    <div class="panel">
+      <div class="panel-kicker">JOB DONE</div>
+      <h2 id="mission-name">First Wheels</h2>
+      <p class="panel-sub" id="mission-flavor"></p>
+      <div class="reward-line">REWARD <span id="mission-reward">$250</span></div>
+      <div class="panel-stats" id="mission-stats"></div>
+      <button id="btn-next-mission" class="big-btn">NEXT JOB</button>
+    </div>
+  </div>
+
+  <!-- Busted / wasted screen -->
+  <div id="gameover-screen" class="overlay hidden">
+    <div class="panel">
+      <div class="panel-kicker" id="gameover-kicker">BUSTED</div>
+      <h2 id="gameover-title">The heat caught up.</h2>
+      <p class="panel-sub" id="gameover-sub">The Solano PD impounded your ride and your pride.</p>
+      <div class="panel-stats" id="gameover-stats"></div>
+      <button id="btn-retry" class="big-btn">TRY AGAIN</button>
+      <button id="btn-title2" class="big-btn ghost">TITLE SCREEN</button>
+    </div>
+  </div>
+
+  <!-- Story complete screen -->
+  <div id="story-screen" class="overlay hidden">
+    <div class="panel">
+      <div class="panel-kicker">THE BIG SCORE — COMPLETE</div>
+      <h2>Solano is yours.</h2>
+      <p class="panel-sub">Five jobs, one clean getaway. Mara is already counting the money.</p>
+      <div class="panel-stats" id="story-stats"></div>
+      <button id="btn-free-roam" class="big-btn">KEEP CRUISING — FREE ROAM</button>
+      <button id="btn-title3" class="big-btn ghost">TITLE SCREEN</button>
+    </div>
+  </div>
+</div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
